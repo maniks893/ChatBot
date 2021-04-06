@@ -1,12 +1,18 @@
 package com.example.chatbot;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.example.chatbot.Adapter.MessageAdapter;
+import com.example.chatbot.model.ResponseMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(messageAdapter);
 
+
         userInput.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
@@ -41,9 +48,11 @@ public class MainActivity extends AppCompatActivity {
                     if (!isLastVisible())
                         recyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
                 }
+                userInput.getText().clear();
                 return false;
             }
         });
+
     }
     boolean isLastVisible() {
         LinearLayoutManager layoutManager = ((LinearLayoutManager) recyclerView.getLayoutManager());
